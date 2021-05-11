@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Platformer.Mechanics;
 
-public class ZeroGravityField : MonoBehaviour
+public class GravityField : MonoBehaviour
 {
     private BoxCollider2D _collider;
 
@@ -15,25 +15,10 @@ public class ZeroGravityField : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         var player = other.gameObject.GetComponent<PlayerController>();
-        if(player != null)
+        if (player != null)
         {
-            player.no_gravity = true;
+            player.no_gravity = false;
             //_collider.enabled = false;
         }
-    }
-
-    //void OnTriggerExit2D(Collider2D other)
-    //{
-    //    var player = other.gameObject.GetComponent<PlayerController>();
-    //    if(player != null)
-    //    {
-    //        player.no_gravity = false;
-    //    }
-    //}
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

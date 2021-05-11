@@ -39,7 +39,18 @@ namespace Platformer.Mechanics
         protected const float minMoveDistance = 0.001f;
         protected const float shellRadius = 0.01f;
 
+        // Flags for different physics fields
         public bool no_gravity = false;
+        public bool vortex = false;
+        public Vector2 vortex_center;
+        public float bound_x = 5f;
+        public float bound_y = 5f;
+        public float vortex_y_coefficient = 1.0f;
+        public float vortex_x_coefficient = 1.0f;
+        public bool teleport = false;
+        public Vector2 teleport_location;
+        public bool elevator = false;
+        public float elevator_speed;
 
 
         /// <summary>
@@ -110,12 +121,24 @@ namespace Platformer.Mechanics
             else
                 velocity += Physics2D.gravity * Time.deltaTime;
 
+            //if no gravity move up and down based on input
             if (no_gravity){
-                float deltaY = Input.GetAxis("Vertical") * 7;
+                float deltaY = Input.GetAxis("Vertical") * 5;
                 velocity.y = deltaY;
             }
-
             velocity.x = targetVelocity.x;
+
+            // vortex drags player towards the center
+            if (vortex){
+                velocity.x += (vortex_center.x - transform.position.x) * vortex_x_coefficient;
+                velocity.y += (vortex_center.y - transform.position.y) * vortex_y_coefficient;
+            }
+
+            //teleport
+            if (teleport) {
+                body.position = teleport_location;
+                velocity = new Vector2();
+            }
 
             IsGrounded = false;
 

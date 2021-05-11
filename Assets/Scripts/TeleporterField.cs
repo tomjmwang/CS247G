@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Platformer.Mechanics;
 
-public class ZeroGravityField : MonoBehaviour
+public class TeleporterField : MonoBehaviour
 {
     private BoxCollider2D _collider;
+
+    public Vector2 target;
 
     void Awake()
     {
@@ -15,25 +17,21 @@ public class ZeroGravityField : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         var player = other.gameObject.GetComponent<PlayerController>();
-        if(player != null)
+        if (player != null)
         {
-            player.no_gravity = true;
+            Debug.Log("vortexed");
+            player.teleport = true;
+            player.teleport_location = target;
             //_collider.enabled = false;
         }
     }
 
-    //void OnTriggerExit2D(Collider2D other)
-    //{
-    //    var player = other.gameObject.GetComponent<PlayerController>();
-    //    if(player != null)
-    //    {
-    //        player.no_gravity = false;
-    //    }
-    //}
-
-    // Update is called once per frame
-    void Update()
+    void OnTriggerExit2D(Collider2D other)
     {
-        
+        var player = other.gameObject.GetComponent<PlayerController>();
+        if (player != null)
+        {
+            player.teleport = false;
+        }
     }
 }
