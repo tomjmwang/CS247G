@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,6 +48,7 @@ namespace Platformer.Mechanics
         public float bound_y = 5f;
         public float vortex_y_coefficient = 1.0f;
         public float vortex_x_coefficient = 1.0f;
+        public float vortex_strength = 1.0f;
         public bool teleport = false;
         public Vector2 teleport_location;
         public bool elevator = false;
@@ -130,8 +132,13 @@ namespace Platformer.Mechanics
 
             // vortex drags player towards the center
             if (vortex){
-                velocity.x += (vortex_center.x - transform.position.x) * vortex_x_coefficient;
-                velocity.y += (vortex_center.y - transform.position.y) * vortex_y_coefficient;
+                // velocity.x += (vortex_center.x - transform.position.x) * vortex_x_coefficient;
+                // velocity.y += (vortex_center.y - transform.position.y) * vortex_y_coefficient;
+                double dist = Math.Sqrt(Math.Pow(vortex_center.x - transform.position.x, 2) + Math.Pow(vortex_center.y - transform.position.y, 2));
+                double x_unit = (vortex_center.x - transform.position.x) / dist;
+                double y_unit = (vortex_center.y - transform.position.y) / dist;
+                velocity.x += (float)x_unit * vortex_strength;
+                velocity.y += (float)y_unit * vortex_strength;
             }
 
             //teleport

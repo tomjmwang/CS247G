@@ -3,22 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Platformer.Mechanics;
 
-public class GravityField : MonoBehaviour
+public class ReverseField : MonoBehaviour
 {
-    private BoxCollider2D _collider;
-
-    void Awake()
-    {
-        _collider = GetComponent<BoxCollider2D>();
-    }
-
+    // Start is called before the first frame update
     void OnTriggerEnter2D(Collider2D other)
     {
         var player = other.gameObject.GetComponent<PlayerController>();
         if (player != null)
         {
-            player.no_gravity = false;
-            //_collider.enabled = false;
+            if (!player.vortex)
+            {
+                player.input_reverse = true;
+            }
         }
     }
 
@@ -27,8 +23,10 @@ public class GravityField : MonoBehaviour
         var player = other.gameObject.GetComponent<PlayerController>();
         if (player != null)
         {
-            player.no_gravity = false;
-            //_collider.enabled = false;
+            if (!player.vortex)
+            {
+                player.input_reverse = true;
+            }
         }
     }
 }

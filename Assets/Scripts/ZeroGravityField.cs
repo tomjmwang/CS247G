@@ -22,6 +22,16 @@ public class ZeroGravityField : MonoBehaviour
         }
     }
 
+    void OnTriggerStay2D(Collider2D other)
+    {
+        var player = other.gameObject.GetComponent<PlayerController>();
+        if (player != null)
+        {
+            player.no_gravity = true;
+            //_collider.enabled = false;
+        }
+    }
+
     //void OnTriggerExit2D(Collider2D other)
     //{
     //    var player = other.gameObject.GetComponent<PlayerController>();

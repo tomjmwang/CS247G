@@ -10,6 +10,7 @@ public class VortexField : MonoBehaviour
     public Vector2 center;
     public float x_coefficient = 1.0f;
     public float y_coefficient = 1.0f;
+    public float strength = 1.0f;
 
     void Awake()
     {
@@ -26,9 +27,11 @@ public class VortexField : MonoBehaviour
                 player.vortex = true;
                 player.vortex_x_coefficient = x_coefficient;
                 player.vortex_y_coefficient = y_coefficient;
+                player.vortex_strength = strength;
             }
             
             player.vortex_center = center;
+            Debug.Log(center);
             //_collider.enabled = false;
         }
     }
@@ -41,6 +44,7 @@ public class VortexField : MonoBehaviour
             player.vortex = true;
             player.vortex_x_coefficient = x_coefficient;
             player.vortex_y_coefficient = y_coefficient;
+            player.vortex_strength = strength;
         }
     }
 
